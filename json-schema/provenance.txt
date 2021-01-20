@@ -1,0 +1,2 @@
+# the schema files were extracted from:
+https://github.com/ejp-rd-vp/query_builder_api/tree/master/versions/v02/schema
