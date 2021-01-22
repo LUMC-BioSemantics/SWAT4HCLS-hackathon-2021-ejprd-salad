@@ -1,0 +1,89 @@
+$base: "http://purl.org/ejp-rd/metadata-model/v1/"
+
+$namespaces:
+  rdf:  "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  dcat: "http://www.w3.org/ns/dcat#"
+  dct:  "http://purl.org/dc/terms/"
+  ejp:  "http://purl.org/ejp-rd/vocabulary/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+
+$graph:
+
+- name: catalogue
+  type: record
+  doc: Rare disease resource catalogue
+  documentRoot: true
+  fields:
+    - name: @id
+      doc: A primary identifier for the catalogue
+      type: string
+      jsonldPredicate:
+         _type: "@id"
+
+    - name: @type
+      doc: The primary type(s) for this catalogue
+      type: 
+        type: enum
+        symbols: [dcat:Catalog] 
+      jsonldPredicate:
+         _id: rdf:type
+         _type: "@vocab"
+
+    - name: name
+      doc: A name for the catalogue
+      type: string?
+      jsonldPredicate:
+         _id: dct:title
+         _type: "@id"
+
+    - name: organisation
+      doc: Organization that publishes the catalogue
+      type: 
+        $import: organisation.yml
+      jsonldPredicate:
+         _id: dct:publisher
+         _type: "@id"
+
+    - name: patientRegistry
+      doc: Link to patient registry 
+      type:
+        $import: patient_registry.yml
+      jsonldPredicate:
+         _id: ejp:patientRegistry
+         _type: "@id"
+
+    - name: biobank
+      doc: Link to biobank
+      type:
+        $import: biobank.yml
+      jsonldPredicate:
+         _id: ejp:biobank
+         _type: "@id"
+
+    - name: guideline
+      doc: Link to guideline
+      type: 
+        $import: guideline.yml
+      jsonldPredicate:
+         _id: ejp:guideline
+         _type: "@id"
+
+    - name: description
+      doc: A description for the catalogue
+      type: string?
+
+    - name: homepage
+      doc: The homepage of the catalogue
+      type: string?
+      example: http://www.orpha.net
+
+    - name: apiVersion
+      doc: Version of the API the catalogue is providing
+      type: string?
+      example: v0.1
+
+    - name: sampleRequests
+      doc: Examples of interesting requests to the catalogue API
+      type: array?
+      items:
+        type: string?

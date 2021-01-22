@@ -1,0 +1,2 @@
+# The semantic models were extracted from:
+https://github.com/rajaram5/resource-metadata-schema/tree/develop
