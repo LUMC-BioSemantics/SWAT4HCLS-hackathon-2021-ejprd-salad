@@ -1,15 +1,57 @@
-$base: ""
+$base: "http://purl.org/ejp-rd/metadata-model/v1/"
 
 $namespaces:
+  rdf:  "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   dct:  "http://purl.org/dc/terms/"
+  foaf: "http://xmlns.com/foaf/0.1/"
 
 $graph:
 
-- name:
-  type:
+- name: organization
+  type: record
+  doc: A schema to describe an organisation
   fields:
-    - name:
-      type:
+    - name: @id
+      doc: A primary identifier for the organisation
+      type: string
       jsonldPredicate:
-         _id:
-         _type:
+         _type: "@id"
+
+    - name: @type
+      doc: The primary type(s) for this organization
+      type: 
+        type: enum
+        symbols: [foaf:Organization]
+      jsonldPredicate:
+         _id: rdf:type
+         _type: "@vocab"
+
+    - name: name
+      doc: A name or short description for the organisation
+      type: string
+      example: Orphanet
+      jsonldPredicate:
+         _id: dct:title
+         _type: "@id"
+ 
+    - name: description
+      doc: A description for the organization
+      type: string?
+      example: Orphanet is a unique resource, gathering and improving knowledge on rare diseases
+      
+    - name: homepage
+      doc: The primary URL for the homepage of the organisation
+      type: string?
+      format: url
+      example: https://www.orpha.net/consor/cgi-bin/index.php
+      jsonldPredicate:
+         _id: foaf:page
+         _type: "@id"   
+
+    - name: location
+      doc: Information about the location associated with the organisation
+      type: 
+        $import: location.yml
+      jsonldPredicate:
+         _id: dct:spatial
+         _type: "@id"
